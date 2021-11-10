@@ -1,9 +1,9 @@
 import { ref } from 'vue'
 import { on, off } from '@element-plus/utils/dom'
 import triggerEvent from '@element-plus/test-utils/trigger-event'
-import usePreventGlobal from '../use-prevent-global'
+import usePrevent from '../use-prevent'
 
-describe('usePreventGlobal', () => {
+describe('usePrevent', () => {
   const evtName = 'keydown'
   const evt = jest.fn()
   beforeAll(() => {
@@ -21,7 +21,7 @@ describe('usePreventGlobal', () => {
   it('should prevent global event from happening', () => {
     const visible = ref(true)
     const evt2Trigger = jest.fn().mockReturnValue(true)
-    usePreventGlobal(visible, evtName, evt2Trigger)
+    usePrevent(visible, evtName, evt2Trigger)
 
     triggerEvent(document.body, evtName)
 
@@ -34,7 +34,7 @@ describe('usePreventGlobal', () => {
   it('should not prevent global event from happening', () => {
     const visible = ref(true)
     const evt2Trigger = jest.fn().mockReturnValue(false)
-    usePreventGlobal(visible, evtName, evt2Trigger)
+    usePrevent(visible, evtName, evt2Trigger)
 
     triggerEvent(document.body, evtName)
 

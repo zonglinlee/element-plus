@@ -132,7 +132,7 @@ import {
   useLockScreen,
   useLocaleInject,
   useRestoreActive,
-  usePreventGlobal,
+  usePrevent,
 } from '@element-plus/hooks'
 import ElInput from '@element-plus/components/input'
 import { ElOverlay } from '@element-plus/components/overlay'
@@ -405,7 +405,7 @@ export default defineComponent({
         visible
       )
     } else {
-      usePreventGlobal(
+      usePrevent(
         visible,
         'keydown',
         (e: KeyboardEvent) => e.code === EVENT_CODE.esc
