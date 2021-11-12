@@ -2,7 +2,7 @@ import path from 'path'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
 import { rollup } from 'rollup'
 import commonjs from '@rollup/plugin-commonjs'
-import vue from 'rollup-plugin-vue'
+import vue from '@vitejs/plugin-vue'
 import esbuild from 'rollup-plugin-esbuild'
 import replace from '@rollup/plugin-replace'
 import filesize from 'rollup-plugin-filesize'
@@ -13,18 +13,18 @@ import { epRoot, epOutput } from './utils/paths'
 import { generateExternal, writeBundles } from './utils/rollup'
 
 import { withTaskName } from './utils/gulp'
+import type { Plugin } from 'rollup'
 
 export const buildFull = (minify: boolean) => async () => {
   const bundle = await rollup({
     input: path.resolve(epRoot, 'index.ts'),
     plugins: [
       await ElementPlusAlias(),
+      vue({
+        isProduction: true,
+      }) as Plugin,
       nodeResolve({
         extensions: ['.mjs', '.js', '.json', '.ts'],
-      }),
-      vue({
-        target: 'browser',
-        exposeFilename: false,
       }),
       commonjs(),
       esbuild({
