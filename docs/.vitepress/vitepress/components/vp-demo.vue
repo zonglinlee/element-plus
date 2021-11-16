@@ -110,24 +110,24 @@ const copyCode = async () => {
     <p class="example-description" v-html="decodedDescription" />
     <div class="example">
       <div class="op-btns">
-        <ElTooltip :content="locale['edit-in-editor']" :visible-arrow="false">
+        <ElTooltip :content="locale['edit-in-editor']" :show-arrow="false">
           <ElIcon :size="20" class="op-btn">
             <PlayGroundIcon @click="onCodepenClicked" />
           </ElIcon>
         </ElTooltip>
-        <ElTooltip :content="locale['edit-on-github']" :visible-arrow="false">
+        <ElTooltip :content="locale['edit-on-github']" :show-arrow="false">
           <ElIcon :size="20" class="op-btn github">
             <a :href="demoSourceUrl" rel="noreferrer noopener" target="_blank">
               <GithubIcon />
             </a>
           </ElIcon>
         </ElTooltip>
-        <ElTooltip :content="locale['copy-code']" :visible-arrow="false">
+        <ElTooltip :content="locale['copy-code']" :show-arrow="false">
           <ElIcon :size="20" class="op-btn" @click="copyCode">
             <CopyIcon />
           </ElIcon>
         </ElTooltip>
-        <ElTooltip :content="locale['view-source']" :visible-arrow="false">
+        <ElTooltip :content="locale['view-source']" :show-arrow="false">
           <ElIcon :size="20" class="op-btn" @click="setSourceVisible">
             <SourceCodeIcon />
           </ElIcon>
