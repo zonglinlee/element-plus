@@ -13,6 +13,7 @@ import isEqual from 'lodash/isEqual'
 import lodashDebounce from 'lodash/debounce'
 import { elFormKey } from '@element-plus/tokens'
 import { useLocale, useSize } from '@element-plus/hooks'
+import ElTooltip from '@element-plus/components/tooltip'
 import { UPDATE_MODEL_EVENT, CHANGE_EVENT } from '@element-plus/utils/constants'
 import {
   addResizeListener,
@@ -78,7 +79,7 @@ const useSelect = (props: ExtractPropTypes<typeof SelectProps>, emit) => {
   const controlRef = ref(null)
   const inputRef = ref(null) // el-input ref
   const menuRef = ref(null)
-  const popper = ref(null)
+  const popper = ref<InstanceType<typeof ElTooltip> | null>(null)
   const selectRef = ref(null)
   const selectionRef = ref(null) // tags ref
   const calculatorRef = ref<HTMLElement>(null)
@@ -230,7 +231,7 @@ const useSelect = (props: ExtractPropTypes<typeof SelectProps>, emit) => {
   })
 
   // this obtains the actual popper DOM element.
-  const popperRef = computed(() => popper.value?.popperRef)
+  const popperRef = computed(() => popper.value?.popperRef?.contentRef)
 
   // the index with current value in options
   const indexRef = computed<number>(() => {
@@ -271,7 +272,7 @@ const useSelect = (props: ExtractPropTypes<typeof SelectProps>, emit) => {
   // methods
   const focusAndUpdatePopup = () => {
     inputRef.value.focus?.()
-    popper.value.update?.()
+    popper.value?.updatePopper()
   }
 
   const toggleMenu = () => {
@@ -361,7 +362,7 @@ const useSelect = (props: ExtractPropTypes<typeof SelectProps>, emit) => {
 
       selectRef.value.height = selection.offsetHeight
       if (expanded.value && emptyText.value !== false) {
-        popper.value?.update?.()
+        popper.value?.updatePopper?.()
       }
     })
   }
@@ -369,7 +370,7 @@ const useSelect = (props: ExtractPropTypes<typeof SelectProps>, emit) => {
   const handleResize = () => {
     resetInputWidth()
     calculatePopperSize()
-    popper.value?.update?.()
+    popper.value?.updatePopper?.()
     if (props.multiple) {
       return resetInputHeight()
     }
