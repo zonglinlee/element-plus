@@ -11,7 +11,7 @@ export const configProviderProps = buildProps({
 
   size: {
     type: String,
-    values: ['large', 'medium', 'small', 'mini'],
+    values: ['large', 'default', 'small'],
   },
 
   button: {
