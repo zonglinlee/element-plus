@@ -40,6 +40,10 @@ export const dialogProps = buildProps({
     type: Boolean,
     default: false,
   },
+  draggable: {
+    type: Boolean,
+    default: false,
+  },
   lockScroll: {
     type: Boolean,
     default: true,
