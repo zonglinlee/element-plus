@@ -156,12 +156,17 @@ export const useSelect = (props, states: States, ctx) => {
   const selectSize = useSize()
 
   const collapseTagSize = computed(() =>
-    ['small'].indexOf(selectSize.value) > -1 ? 'small' : ''
+    ['small'].indexOf(selectSize.value) > -1 ? 'small' : 'default'
   )
 
-  const dropMenuVisible = computed(
-    () => states.visible && emptyText.value !== false
-  )
+  const dropMenuVisible = computed({
+    get() {
+      return states.visible && emptyText.value !== false
+    },
+    set(val: boolean) {
+      states.visible = val
+    },
+  })
 
   // watch
   watch(
@@ -649,7 +654,7 @@ export const useSelect = (props, states: States, ctx) => {
     }
 
     if (tooltipRef.value && target) {
-      const menu = tooltipRef.value?.popperRef.contentRef?.querySelector?.(
+      const menu = tooltipRef.value?.popperRef?.contentRef?.querySelector?.(
         '.el-select-dropdown__wrap'
       )
       if (menu) {
